@@ -7,11 +7,11 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Log\LoggerInterface;
-use App\Application\Config\Logger as AppLoger;
+use App\Application\Config\Logger as LoggerSettings;
 
 class LoggerFactory
 {
-    private AppLoger $loggerSettings;
+    private LoggerSettings $loggerSettings;
     public function __construct(ConfigInterface $config)
     {
         $this->loggerSettings = $config->get()->logger;
@@ -28,7 +28,7 @@ class LoggerFactory
         $logger->pushHandler($handler);
 
         if($this->loggerSettings->path == "php://stdout") {
-            $logger->info('logger add', [$this->loggerSettings]);
+            $logger->info('Logger ready', [$this->loggerSettings]);
         }
 
         return $logger;
