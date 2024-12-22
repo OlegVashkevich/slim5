@@ -7,10 +7,15 @@
         "monolog/monolog": "^3.8",
         "doctrine/orm": "3.0",
         "doctrine/dbal": "4.0",
-        "symfony/cache": "^7.2"
+        "symfony/cache": "^7.2",
+        "doctrine/migrations": "^3.8"
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-4": { "App\\": "src/"}
+        "psr-4": { 
+            "App\\": "src/", 
+            "Migrations\\": "migrations/"
+        }
+        
     }
 }

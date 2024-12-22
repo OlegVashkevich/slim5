@@ -8,4 +8,4 @@
 - Orm, Dbal, Миграции - [doctrine](https://www.doctrine-project.org/)
 
 ### Doctrine
-консоль ```php bin/doctrine```
+консоль ```bin/doctrine```
