@@ -1,6 +1,6 @@
 <?php
-namespace App\Application\Config;
 
+namespace App\Application\Config;
 
 final class Config implements ConfigInterface
 {
@@ -8,15 +8,13 @@ final class Config implements ConfigInterface
         /** @var non-empty-string */
         public readonly string $name,
         public readonly \DateTimeZone $timeZone,
-        
         public readonly Logger $logger,
         public readonly Doctrine $doctrine,
-    ) {}
+    ) {
+    }
 
-    public function get():Config
+    public function get(): Config
     {
         return $this;
     }
 }
-
-
