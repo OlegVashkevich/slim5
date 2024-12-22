@@ -10,20 +10,17 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use App\Application\Config\ConfigInterface;
 use App\Application\Config\Doctrine;
 use Psr\Log\LoggerInterface;
-use App\Application\Config\Logger as LoggerSettings;
 
 class EntityManagerFactory
 {
     private Doctrine $settings;
     private LoggerInterface $logger;
-    private LoggerSettings $loggerSettings;
     
     public function __construct(ConfigInterface $config, LoggerInterface $logger)
     {
         $this->settings = $config->get()->doctrine;
 
         $this->logger = $logger;
-        $this->loggerSettings = $config->get()->logger;
     }
 
     public function create(): EntityManager
@@ -44,9 +41,7 @@ class EntityManagerFactory
         // @phpstan-ignore argument.type
         $connection = DriverManager::getConnection((array) $this->settings->connection);
 
-        if ($this->loggerSettings->path == "php://stdout") {
-            $this->logger->info('EntityManager ready');
-        }
+        $this->logger->info('EntityManager ready');
 
         return new EntityManager($connection, $config);
     }

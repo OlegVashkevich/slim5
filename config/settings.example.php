@@ -6,9 +6,9 @@ return [
     "name" => "slim5",
     "timeZone" => "Europe/Minsk",
     "logger" => [
-        //"name" => "app",
-        //"path" => APP_ROOT . '/var/logs/app.log',
-        //"level" => Level::Info //or int - 100, 200, 250, 300, 400, 500, 550, 600
+        "name" => "app",
+        "path" => APP_ROOT . '/var/logs/error.log',
+        "level" => Level::Error //or int - 100, 200, 250, 300, 400, 500, 550, 600
     ],
     'doctrine' => [
         // Enables or disables Doctrine metadata caching

@@ -37,9 +37,14 @@ class ConfigFactory
                 $cache = new FileWatchingCache($cache);
                 $mapper = $mapper->withCache($cache);
             }
-            return $mapper->allowSuperfluousKeys()
+            $cfg = $mapper
+                ->allowSuperfluousKeys()
                 ->mapper()
                 ->map(Config::class, Source::array($config));
+                
+            date_default_timezone_set($cfg->timeZone->getName());
+
+            return $cfg;
         } catch (MappingError $error) {
             throw $error;
             // Handle the error…
@@ -48,6 +53,7 @@ class ConfigFactory
             );
             $errorMessages = $messages->errors();
             foreach ($errorMessages as $message) {
+                //print_r($message->toString());
                 throw new \Exception($message->toString());
             }*/
         }
