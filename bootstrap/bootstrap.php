@@ -2,14 +2,20 @@
 
 use Slim\Builder\AppBuilder;
 
-require __DIR__.'/../vendor/autoload.php';
+define('APP_ROOT', __DIR__.'/..');
+define('APP_DEBUG', true);
+
+require APP_ROOT.'/vendor/autoload.php';
 
 // Build the App instance
 $builder = new AppBuilder();
 
-$builder->setSettings(require __DIR__ . '/../config/settings.php');
+$builder->setSettings([
+    'config_path' => APP_ROOT.'/env.php',
+    'prod_mode' => APP_DEBUG,
+]);
 
-$builder->addDefinitions(require __DIR__ . '/../bootstrap/dependencies.php');
+$builder->addDefinitions(require APP_ROOT . '/bootstrap/dependencies.php');
 
 $app = $builder->build();
 

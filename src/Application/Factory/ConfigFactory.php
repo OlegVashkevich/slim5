@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
 
 class ConfigFactory
 {
-    private $path = __DIR__.'/../../../env.php';
+    private $path = APP_ROOT.'/env.php';
     private bool $is_cache = false;
     public function __construct(
         ContainerInterface $container
@@ -33,7 +33,7 @@ class ConfigFactory
             $config = include_once($this->path);
             $mapper = new MapperBuilder();
             if ($this->is_cache) {
-                $cache = new FileSystemCache(__DIR__.'/../../../var/cache/mapper');
+                $cache = new FileSystemCache(APP_ROOT.'/var/cache/mapper');
                 $cache = new FileWatchingCache($cache);
                 $mapper = $mapper->withCache($cache);
             }
@@ -42,9 +42,13 @@ class ConfigFactory
                 ->map(Config::class, Source::json(json_encode($config)));
         } catch (MappingError $error) {
             // Handle the error…
-            echo '<pre>';
-            print_r($error);
-            echo '</pre>';
+            $messages = \CuyZ\Valinor\Mapper\Tree\Message\Messages::flattenFromNode(
+                $error->node()
+            );
+            $errorMessages = $messages->errors();
+            foreach ($errorMessages as $message) {
+                print_r($message->toString());
+            }
         }
     }
 }

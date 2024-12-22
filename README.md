@@ -9,3 +9,4 @@
 
 ### Doctrine
 консоль ```bin/doctrine```
+миграции ```./vendor/bin/doctrine-migrations```

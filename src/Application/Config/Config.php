@@ -10,6 +10,7 @@ final class Config implements ConfigInterface
         public readonly \DateTimeZone $timeZone,
         
         public readonly Logger $logger,
+        public readonly Doctrine $doctrine,
     ) {}
 
     public function get():Config
