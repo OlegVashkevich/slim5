@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+use Slim\App;
+
+/** @var App $app */
+$app = require_once __DIR__ . '/../bootstrap/bootstrap.php';
+
+ConsoleRunner::run(
+    new SingleManagerProvider($app->getContainer()->get(EntityManager::class))
+);

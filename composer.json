@@ -4,7 +4,10 @@
         "slim/slim": "5.*",
         "php-di/php-di": "^7.0",
         "cuyz/valinor": "^1.14",
-        "monolog/monolog": "^3.8"
+        "monolog/monolog": "^3.8",
+        "doctrine/orm": "3.0",
+        "doctrine/dbal": "4.0",
+        "symfony/cache": "^7.2"
     },
     "minimum-stability": "dev",
     "autoload": {
