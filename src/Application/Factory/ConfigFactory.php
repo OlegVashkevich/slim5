@@ -13,16 +13,16 @@ use Psr\Container\ContainerInterface;
 
 class ConfigFactory
 {
-    private $path = APP_ROOT.'/env.php';
+    private string $path = APP_ROOT.'/config/settings.php';
     private bool $is_cache = false;
     public function __construct(
         ContainerInterface $container
     ) {
-        $settings = $container->get('settings');
-        if (!empty($settings['config_path'])) {
+        $settings = (array) $container->get('settings');
+        if (isset($settings['config_path']) && is_string($settings['config_path'])) {
             $this->path = $settings['config_path'];
         }
-        if (!empty($settings['prod_mode'])) {
+        if (isset($settings['prod_mode'])) {
             $this->is_cache = $settings['prod_mode'];
         }
     }
@@ -39,16 +39,17 @@ class ConfigFactory
             }
             return $mapper->allowSuperfluousKeys()
                 ->mapper()
-                ->map(Config::class, Source::json(json_encode($config)));
+                ->map(Config::class, Source::array($config));
         } catch (MappingError $error) {
+            throw $error;
             // Handle the error…
-            $messages = \CuyZ\Valinor\Mapper\Tree\Message\Messages::flattenFromNode(
+            /*$messages = \CuyZ\Valinor\Mapper\Tree\Message\Messages::flattenFromNode(
                 $error->node()
             );
             $errorMessages = $messages->errors();
             foreach ($errorMessages as $message) {
-                print_r($message->toString());
-            }
+                throw new \Exception($message->toString());
+            }*/
         }
     }
 }

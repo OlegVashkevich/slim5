@@ -8,13 +8,14 @@ use Doctrine\ORM\ORMSetup;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use App\Application\Config\ConfigInterface;
+use App\Application\Config\Doctrine;
 
 class EntityManagerFactory
 {
-    private $settings;
-    public function __construct(ContainerInterface $container)
+    private Doctrine $settings;
+    public function __construct(ConfigInterface $config)
     {
-        $this->settings = $container->get(ConfigInterface::class)->get()->doctrine;
+        $this->settings = $config->get()->doctrine;
     }
 
     public function create(): EntityManager 
@@ -32,6 +33,7 @@ class EntityManagerFactory
             $cache
         );
 
+        // @phpstan-ignore argument.type
         $connection = DriverManager::getConnection((array) $this->settings->connection);
 
         return new EntityManager($connection, $config);

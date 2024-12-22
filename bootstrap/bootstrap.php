@@ -11,7 +11,7 @@ require APP_ROOT.'/vendor/autoload.php';
 $builder = new AppBuilder();
 
 $builder->setSettings([
-    'config_path' => APP_ROOT.'/env.php',
+    'config_path' => APP_ROOT.'/config/settings.php',
     'prod_mode' => APP_DEBUG,
 ]);
 

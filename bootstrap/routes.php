@@ -9,9 +9,6 @@ return function (App $app) {
     // Register Routes
     $app->get('/', function ($request, $response, $args) {
         $response->getBody()->write('Hello, World!');
-        // add records to the log
-        $this->get(LoggerInterface::class)->info('Main');
-
         return $response;
     });
 

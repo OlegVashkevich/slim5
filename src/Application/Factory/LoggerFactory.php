@@ -7,13 +7,14 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Log\LoggerInterface;
+use App\Application\Config\Logger as AppLoger;
 
 class LoggerFactory
 {
-    private $loggerSettings;
-    public function __construct(ContainerInterface $container)
+    private AppLoger $loggerSettings;
+    public function __construct(ConfigInterface $config)
     {
-        $this->loggerSettings = $container->get(ConfigInterface::class)->get()->logger;
+        $this->loggerSettings = $config->get()->logger;
     }
 
     public function create(): LoggerInterface

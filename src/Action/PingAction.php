@@ -2,23 +2,29 @@
 
 namespace App\Action;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 
 class PingAction
 {
-    private ContainerInterface $container;
+    private LoggerInterface $logger;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(LoggerInterface $logger)
     {
-        $this->container = $container;
+        $this->logger = $logger;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array<string, string> $args
+     * @return ResponseInterface
+     */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $response->getBody()->write('Pong!');
-
+        $this->logger->info('Pong!');
         return $response;
     }
 }
